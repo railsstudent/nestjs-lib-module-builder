@@ -23,5 +23,7 @@
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "noUncheckedIndexedAccess": true
-  }
+  },
+  "include": ["lib"],
+  "exclude": ["test", "node_modules"]
 }
