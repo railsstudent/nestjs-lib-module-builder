@@ -1,11 +1,12 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common'
-import { MODULE_OPTIONS_TOKEN } from '@nestjs/common/cache/cache.module-definition'
 import { COUNTRIES } from '../enums'
-import { WorldCupModuleOptions } from '../interfaces'
+import { WorldCupFinalMatch, WorldCupModuleOptions, WorldCupResult } from '../interfaces'
+import { MODULE_OPTIONS_TOKEN } from '../world-cup-module-definition'
 
 @Injectable()
 export class WorldCupService {
-  private readonly results: { year: number; winner: COUNTRIES; runnerUp: COUNTRIES }[]
+  private readonly results: WorldCupFinalMatch[]
+  private readonly resultMap: Record<number, WorldCupResult>
 
   constructor(@Inject(MODULE_OPTIONS_TOKEN) private options: WorldCupModuleOptions) {
     this.results = [
@@ -70,6 +71,12 @@ export class WorldCupService {
         runnerUp: COUNTRIES.NETHERLANDS,
       },
     ]
+
+    this.resultMap = this.results.reduce((acc, item) => {
+      const { year, ...rest } = item
+      acc[year] = rest
+      return acc
+    }, {} as Record<number, WorldCupResult>)
   }
 
   getYear(): number {
@@ -77,7 +84,7 @@ export class WorldCupService {
   }
 
   getResults(): { winner: COUNTRIES; runnerUp: COUNTRIES } {
-    const result = this.results[this.options.year]
+    const result = this.resultMap[this.options.year]
     if (result) {
       return {
         winner: result.winner,
