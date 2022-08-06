@@ -1,6 +1,6 @@
 {
   "name": "nestjs-world-cup-lib",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Create a library that returns champion and runner-up of world cup",
   "author": "Connie Leung",
   "license": "MIT",
