@@ -6,4 +6,7 @@ export interface WorldCupFinalMatch {
   runnerUp: COUNTRIES
 }
 
-export type WorldCupResult = Omit<WorldCupFinalMatch, 'year'>
+export interface WorldCupFinalAppearances {
+  favoriteCountry: string
+  finals: WorldCupFinalMatch[]
+}

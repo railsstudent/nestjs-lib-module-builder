@@ -1,12 +1,12 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common'
 import { COUNTRIES } from '../enums'
-import { WorldCupFinalMatch, WorldCupModuleOptions, WorldCupResult } from '../interfaces'
+import { WorldCupFinalAppearances, WorldCupFinalMatch, WorldCupModuleOptions } from '../interfaces'
 import { MODULE_OPTIONS_TOKEN } from '../world-cup-module-definition'
 
 @Injectable()
 export class WorldCupService {
   private readonly results: WorldCupFinalMatch[]
-  private readonly resultMap: Record<number, WorldCupResult>
+  private readonly resultMap: Record<number, WorldCupFinalMatch>
 
   constructor(@Inject(MODULE_OPTIONS_TOKEN) private options: WorldCupModuleOptions) {
     this.results = [
@@ -73,24 +73,34 @@ export class WorldCupService {
     ]
 
     this.resultMap = this.results.reduce((acc, item) => {
-      const { year, ...rest } = item
-      acc[year] = rest
+      acc[item.year] = item
       return acc
-    }, {} as Record<number, WorldCupResult>)
+    }, {} as Record<number, WorldCupFinalMatch>)
   }
 
   getYear(): number {
     return this.options.year
   }
 
-  getResults(): { winner: COUNTRIES; runnerUp: COUNTRIES } {
+  getResult(): WorldCupFinalMatch {
     const result = this.resultMap[this.options.year]
     if (result) {
-      return {
-        winner: result.winner,
-        runnerUp: result.runnerUp,
-      }
+      return result
     }
     throw new BadRequestException(`${this.options.year} is not a World Cup year.`)
+  }
+
+  getFinalAppearances(): WorldCupFinalAppearances {
+    const finals = this.results.reduce((acc: WorldCupFinalMatch[], item) => {
+      const { winner, runnerUp } = item
+      if (winner === this.options.favoriteCountry || runnerUp === this.options.favoriteCountry) {
+        return acc.concat(item)
+      }
+      return acc
+    }, [])
+    return {
+      favoriteCountry: this.options.favoriteCountry,
+      finals,
+    }
   }
 }

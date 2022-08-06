@@ -8,7 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "postbuild": "cp package.json ./dist",
+    "postbuild": "cp package.json ./dist && rm tsconfig.build.tsbuildinfo",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"lib/**/*.ts\" --fix",
     "cspell": "cspell --no-must-find-files src/**/*.{ts,js}",
