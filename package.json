@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "Create a library that returns champion and runner-up of world cup",
   "author": "Connie Leung",
-  "private": true,
   "license": "MIT",
   "bugs": "https://github.com/railsstudent/nestjs-world-cup-lib/issues",
   "repository": {
