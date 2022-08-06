@@ -136,9 +136,9 @@ export class WorldCupService {
   }
 
   getFinalAppearances(): WorldCupFinalAppearances {
-    const typedCountry = COUNTRIES[this.options.favoriteCountry as keyof typeof COUNTRIES]
+    const typedCountry = this.options.favoriteCountry as COUNTRIES
     if ([COUNTRIES.GERMANY, COUNTRIES.WEST_GERMANY].includes(typedCountry)) {
-      return this.getGermanyAppearance()
+      return this.getAppearancesOfGermany(typedCountry)
     }
 
     const { finals, numOfWinners } = this.results.reduce(
@@ -154,15 +154,16 @@ export class WorldCupService {
       },
       { finals: [] as WorldCupFinalMatch[], numOfWinners: 0 },
     )
+
     return {
-      favoriteCountry: this.options.favoriteCountry,
+      favoriteCountry: typedCountry,
       finals,
       numOfAppearances: finals.length,
       numOfWinners,
     }
   }
 
-  private getGermanyAppearance(): WorldCupFinalAppearances {
+  private getAppearancesOfGermany(typedCountry: COUNTRIES): WorldCupFinalAppearances {
     const { finals, numOfWinners } = this.results.reduce(
       (acc, item) => {
         const { winner, runnerUp } = item
@@ -176,8 +177,9 @@ export class WorldCupService {
       },
       { finals: [] as WorldCupFinalMatch[], numOfWinners: 0 },
     )
+
     return {
-      favoriteCountry: this.options.favoriteCountry,
+      favoriteCountry: typedCountry,
       finals,
       numOfAppearances: finals.length,
       numOfWinners,
