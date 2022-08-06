@@ -136,13 +136,40 @@ export class WorldCupService {
   }
 
   getFinalAppearances(): WorldCupFinalAppearances {
+    const typedCountry = COUNTRIES[this.options.favoriteCountry as keyof typeof COUNTRIES]
+    if ([COUNTRIES.GERMANY, COUNTRIES.WEST_GERMANY].includes(typedCountry)) {
+      return this.getGermanyAppearance()
+    }
+
     const { finals, numOfWinners } = this.results.reduce(
       (acc, item) => {
         const { winner, runnerUp } = item
-        if (winner === this.options.favoriteCountry || runnerUp === this.options.favoriteCountry) {
+        if ([winner, runnerUp].includes(typedCountry)) {
           acc.finals.push(item)
         }
         if (winner === this.options.favoriteCountry) {
+          acc.numOfWinners = acc.numOfWinners + 1
+        }
+        return acc
+      },
+      { finals: [] as WorldCupFinalMatch[], numOfWinners: 0 },
+    )
+    return {
+      favoriteCountry: this.options.favoriteCountry,
+      finals,
+      numOfAppearances: finals.length,
+      numOfWinners,
+    }
+  }
+
+  private getGermanyAppearance(): WorldCupFinalAppearances {
+    const { finals, numOfWinners } = this.results.reduce(
+      (acc, item) => {
+        const { winner, runnerUp } = item
+        if ([winner, runnerUp].includes(COUNTRIES.GERMANY) || [winner, runnerUp].includes(COUNTRIES.WEST_GERMANY)) {
+          acc.finals.push(item)
+        }
+        if ([COUNTRIES.GERMANY, COUNTRIES.WEST_GERMANY].includes(winner)) {
           acc.numOfWinners = acc.numOfWinners + 1
         }
         return acc
