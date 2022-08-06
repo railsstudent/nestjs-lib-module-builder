@@ -70,6 +70,51 @@ export class WorldCupService {
         winner: COUNTRIES.WEST_GERMANY,
         runnerUp: COUNTRIES.NETHERLANDS,
       },
+      {
+        year: 1970,
+        winner: COUNTRIES.BRAZIL,
+        runnerUp: COUNTRIES.ITALY,
+      },
+      {
+        year: 1966,
+        winner: COUNTRIES.ENGLAND,
+        runnerUp: COUNTRIES.WEST_GERMANY,
+      },
+      {
+        year: 1962,
+        winner: COUNTRIES.BRAZIL,
+        runnerUp: COUNTRIES.CZECHOSLOVAKIA,
+      },
+      {
+        year: 1958,
+        winner: COUNTRIES.BRAZIL,
+        runnerUp: COUNTRIES.SWEDEN,
+      },
+      {
+        year: 1954,
+        winner: COUNTRIES.WEST_GERMANY,
+        runnerUp: COUNTRIES.HUNGARY,
+      },
+      {
+        year: 1950,
+        winner: COUNTRIES.URUGUAY,
+        runnerUp: COUNTRIES.BRAZIL,
+      },
+      {
+        year: 1938,
+        winner: COUNTRIES.ITALY,
+        runnerUp: COUNTRIES.HUNGARY,
+      },
+      {
+        year: 1934,
+        winner: COUNTRIES.ITALY,
+        runnerUp: COUNTRIES.CZECHOSLOVAKIA,
+      },
+      {
+        year: 1930,
+        winner: COUNTRIES.URUGUAY,
+        runnerUp: COUNTRIES.ARGENTINA,
+      },
     ]
 
     this.resultMap = this.results.reduce((acc, item) => {

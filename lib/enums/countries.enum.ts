@@ -8,4 +8,9 @@ export enum COUNTRIES {
   GERMANY = 'Germany',
   NETHERLANDS = 'Netherlands',
   SPAIN = 'Spain',
+  ENGLAND = 'England',
+  SWEDEN = 'Sweden',
+  CZECHOSLOVAKIA = 'Czechoslovakia',
+  URUGUAY = 'Uruguay',
+  HUNGARY = 'Hungary',
 }
