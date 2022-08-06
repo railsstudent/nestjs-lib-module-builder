@@ -136,16 +136,24 @@ export class WorldCupService {
   }
 
   getFinalAppearances(): WorldCupFinalAppearances {
-    const finals = this.results.reduce((acc: WorldCupFinalMatch[], item) => {
-      const { winner, runnerUp } = item
-      if (winner === this.options.favoriteCountry || runnerUp === this.options.favoriteCountry) {
-        return acc.concat(item)
-      }
-      return acc
-    }, [])
+    const { finals, numOfWinners } = this.results.reduce(
+      (acc, item) => {
+        const { winner, runnerUp } = item
+        if (winner === this.options.favoriteCountry || runnerUp === this.options.favoriteCountry) {
+          acc.finals.push(item)
+        }
+        if (winner === this.options.favoriteCountry) {
+          acc.numOfWinners = acc.numOfWinners + 1
+        }
+        return acc
+      },
+      { finals: [] as WorldCupFinalMatch[], numOfWinners: 0 },
+    )
     return {
       favoriteCountry: this.options.favoriteCountry,
       finals,
+      numOfAppearances: finals.length,
+      numOfWinners,
     }
   }
 }

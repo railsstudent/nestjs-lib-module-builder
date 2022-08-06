@@ -9,4 +9,6 @@ export interface WorldCupFinalMatch {
 export interface WorldCupFinalAppearances {
   favoriteCountry: string
   finals: WorldCupFinalMatch[]
+  numOfAppearances: number
+  numOfWinners: number
 }
