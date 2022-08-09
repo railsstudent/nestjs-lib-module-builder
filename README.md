@@ -24,7 +24,7 @@ export class AppModule {}
 
 ```typescript
 @Module({
-  ...WorldCupModule.forRootAsync({
+  WorldCupModule.forRootAsync({
     imports: [ConfigModule],
     inject: [ConfigService],
     useFactory: (service: ConfigService) => ({
